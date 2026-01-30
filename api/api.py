@@ -6,6 +6,10 @@ api = Flask(__name__) # creates flask instance
 @api.route("/calculator", methods=["POST"]) # defines "/calculator" endpoint for only POST requests
 def api_calculator():
     payload = request.get_json(silent=True) # extracts json payload, returns none if it fails
+    if not payload: # checks if json payload is invalid or missing
+        return jsonify({"ERROR": "Invalid Payload"}), 400
+    if "input" not in payload:
+        return jsonify({"ERROR": "Missing 'input' Key In Payload"}), 400
     data = payload["input"] # extracts list from the "input" key
 
     calculations = { # stores results from the calculations below
