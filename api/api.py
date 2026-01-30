@@ -5,8 +5,8 @@ api = Flask(__name__) # creates flask instance
 
 @api.route("/calculator", methods=["POST"]) # defines "/calculator" endpoint for only POST requests
 def api_calculator():
-    # payload = request.get_json(silent=True) # extracts json payload, returns none if it fails
-    data = [19, 24, 55, 31, 16]
+    payload = request.get_json(silent=True) # extracts json payload, returns none if it fails
+    data = payload["input"] # extracts list from the "input" key
 
     calculations = { # stores results from the calculations below
         "Mean": statistics.mean(data),
