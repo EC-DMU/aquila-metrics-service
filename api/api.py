@@ -13,6 +13,8 @@ def api_calculator():
     data = payload["input"] # extracts list from the "input" key
     if not data: # checks if the payload's list is empty
         return jsonify({"ERROR": "Input List Is Empty"}), 400
+    if not all(isinstance(x, (int, float))for x in data): # checks the input list contains only numeric inputs
+        return jsonify({"ERROR": "Input List Must Contain Only Numbers"}), 400
 
     calculations = { # stores results from the calculations below
         "Mean": statistics.mean(data),
