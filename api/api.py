@@ -13,9 +13,8 @@ def api_calculator():
     data = payload["input"] # extracts list from the "input" key
     if len(data) <2: # checks if there are less than two numbers in the input list
         return jsonify({"ERROR": "Must Contain At Least Two Numbers"}), 400
-    if not all(isinstance(x, (int, float))for x in data): # checks the input list contains only numeric inputs
+    if not all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in data): # checks the input list contains only numeric inputs
         return jsonify({"ERROR": "Input List Must Contain Only Numbers"}), 400
-
 
     calculations = { # stores results from the calculations below
         "Mean": statistics.mean(data),
