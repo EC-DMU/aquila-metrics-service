@@ -18,24 +18,31 @@ Features:
     - Non-numeric inputs
 
 Installation:
-    - Clone the repository: 
-     ```
-     git clone https://github.com/EC-DMU/metrics-calculator.git
-     ```
-    - Enter the directory: 
-     ```
-     cd metrics-calculator
-     ```
-    - Download dependencies: 
-     ```
-     pip install -r requirements.txt
-     ```
-How to run: 
-    - Start the flask server: 
-     ```
-     python api/api.py
-     ```
-     - now the API will listen on port 5050
+
+- Clone the repository:
+```
+git clone https://github.com/EC-DMU/metrics-calculator.git
+```
+
+- Enter the directory:
+```
+cd metrics-calculator
+```
+
+- Download dependencies:
+```
+pip install -r requirements.txt
+```
+
+How to run:
+
+- Start the Flask server:
+```
+python api/api.py
+```
+
+- The API will listen on port 5050
+
 
 Example Request:
  ```
