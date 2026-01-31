@@ -19,30 +19,30 @@ Features:
 
 Installation:
     - Clone the repository: 
-         ```
-         git clone https://github.com/EC-DMU/metrics-calculator.git
-         ```
+     ```
+     git clone https://github.com/EC-DMU/metrics-calculator.git
+     ```
     - Enter the directory: 
-         ```
-         cd metrics-calculator
-         ```
+     ```
+     cd metrics-calculator
+     ```
     - Download dependencies: 
-         ```
-         pip install -r requirements.txt
-         ```
+     ```
+     pip install -r requirements.txt
+     ```
 How to run: 
     - Start the flask server: 
-         ```
-         python api/api.py
-         ```
+     ```
+     python api/api.py
+     ```
      - now the API will listen on port 5050
 
 Example Request:
-     ```
-     curl -X POST http://localhost:5050/calculator -H "content-type: application/json" -d '{"input": [10, 20, 30, 40]}'
-     ```
+ ```
+ curl -X POST http://localhost:5050/calculator -H "content-type: application/json" -d '{"input": [10, 20, 30, 40]}'
+ ```
 
 Example Response:
-     ```
-     {"Max":40,"Mean":25,"Median":25.0,"Standard Deviation":12.909944487358056,"min":10}
-     ```
+ ```
+ {"Max":40,"Mean":25,"Median":25.0,"Standard Deviation":12.909944487358056,"min":10}
+ ```
