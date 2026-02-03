@@ -7,20 +7,33 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Virtual Enviroment Setup') {
+        stage('Build') {
             steps {
-                sh 'python3 -m venv venv'
+                sh 'docker build -t metrics-api:$BUILD_NUMBER .'
             }
         }
-        stage('Requirements Installation'){
+        stage('Test Application'){
             steps {
-                sh '. venv/bin/activate && pip install -r requirements.txt'
+                sh 'docker run --rm metrics-api:$BUILD_NUMBER pytest > test_log.log'
             }
         }
-        stage('Run Jenkins Test') {
+        stage('Deploy Application') {
             steps {
-                sh '. venv/bin/activate && python3 -m pytest tests/jenkins_test.py'
+                sh 'docker stop metrics-container || true'
+                sh 'docker rm metrics-container || true'
+                sh 'docker run -d -p 5050:5050 --name metrics-container metrics-api:$BUILD_NUMBER'
             }
         }
     }  
+    post {
+        always {
+            archiveArtifacts artifacts: 'test_log.log', allowEmptyArchive: true
+        }
+        success {
+            echo "Deployment successful, API running on port 5050"
+        }
+        failure {
+            echo "Deployment failed, result in logs"
+        }
+    }
 }
