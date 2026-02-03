@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Test Application'){
             steps {
-                sh 'docker run --rm metrics-api:$BUILD_NUMBER pytest > test_log.log'
+                sh 'docker run --rm metrics-api:$BUILD_NUMBER python -m pytest | tee test_log.log'
             }
         }
         stage('Deploy Application') {
