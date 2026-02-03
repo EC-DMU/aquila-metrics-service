@@ -28,4 +28,4 @@ def api_calculator():
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5050)) # getting environment port if exists, if not uses port 5050
-    api.run(host="0.0.0.0", port=port) # runs flask app, binds network interfaces for external docker container access
+    api.run(host="0.0.0.0", port=port, threaded=False) # runs flask app, binds network interfaces for external docker container access
