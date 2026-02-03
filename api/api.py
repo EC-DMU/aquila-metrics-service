@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request # Flask Used For Building API
 import statistics # for calculations
+import os
 
 api = Flask(__name__) # creates flask instance
 
@@ -26,4 +27,5 @@ def api_calculator():
     return jsonify(calculations), 200
 
 if __name__ == "__main__":
-    api.run(port=5050) # locally runs on port 5050
+    port = int(os.getenv("PORT", 5050)) # getting environment port if exists, if not uses port 5050
+    api.run(host="0.0.0.0", port=port, threaded=False) # runs flask app, binds network interfaces for external docker container access
