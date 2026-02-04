@@ -21,7 +21,7 @@ def api_calculator():
         "Mean": statistics.mean(data),
         "Median": statistics.median(data),
         "Standard Deviation": statistics.stdev(data),
-        "min": min(data),
+        "Min": min(data),
         "Max": max(data)
     }
     return jsonify(calculations), 200
