@@ -1,26 +1,38 @@
 pipeline {
     agent any
-
     stages {
-        stage('Checkout') {
+        stage('Build') {
             steps {
-                checkout scm
+                // building docker image and tagging docker image with jenkins build number
+                sh 'docker build -t metrics-api:$BUILD_NUMBER .'
             }
         }
-        stage('Virtual Enviroment Setup') {
+        stage('Test Application'){
             steps {
-                sh 'python3 -m venv venv'
+                // tee for archiving logs and pipefail for keeping exit code
+                sh 'set -o pipefail; docker run --rm metrics-api:$BUILD_NUMBER python -m pytest /api | tee test_log.log'
             }
         }
-        stage('Requirements Installation'){
+        stage('Deploy Application') {
             steps {
-                sh '. venv/bin/activate && pip install -r requirements.txt'
-            }
-        }
-        stage('Run Jenkins Test') {
-            steps {
-                sh '. venv/bin/activate && python3 -m pytest tests/jenkins_test.py'
+                // stopping exsisting containers
+                sh 'docker stop metrics-container || true'
+                sh 'docker rm metrics-container || true'
+                //deploying new container with the image built previously
+                sh 'docker run -d -p 5051:5050 --name metrics-container metrics-api:$BUILD_NUMBER python api/api/api.py'
             }
         }
     }  
+    post {
+        always {
+            // archiving test logs regardless of result
+            archiveArtifacts artifacts: 'test_log.log', allowEmptyArchive: true
+        }
+        success {
+            echo "Deployment successful, API running on port 5050"
+        }
+        failure {
+            echo "Deployment failed, result in logs"
+        }
+    }
 }
