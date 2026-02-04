@@ -29,3 +29,9 @@ def test_none_numeric_inputs():
     response = client.post("/calculator", json={"inpiut": [1, "a", 2]})
     response_json = response.get_json()
     assert response.status_code == 400, f"Got {response.status_code} instead of expected status code of 400"
+
+def test_bool_inputs():
+    client = api.test_client()
+    response = client.post("/calculator", json={"inpiut": [1, True, 2]})
+    response_json = response.get_json()
+    assert response.status_code == 400, f"Got {response.status_code} instead of expected status code of 400"
