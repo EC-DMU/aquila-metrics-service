@@ -20,18 +20,18 @@ def test_invalid_key():
 
 def test_not_enough_numbers():
     client = api.test_client()
-    response = client.post("/calculator", json={"inpiut": [1]})
+    response = client.post("/calculator", json={"input": [1]})
     response_json = response.get_json()
     assert response.status_code == 400, f"Got {response.status_code} instead of expected status code of 400"
 
 def test_none_numeric_inputs():
     client = api.test_client()
-    response = client.post("/calculator", json={"inpiut": [1, "a", 2]})
+    response = client.post("/calculator", json={"input": [1, "a", 2]})
     response_json = response.get_json()
     assert response.status_code == 400, f"Got {response.status_code} instead of expected status code of 400"
 
 def test_bool_inputs():
     client = api.test_client()
-    response = client.post("/calculator", json={"inpiut": [1, True, 2]})
+    response = client.post("/calculator", json={"input": [1, True, 2]})
     response_json = response.get_json()
     assert response.status_code == 400, f"Got {response.status_code} instead of expected status code of 400"
