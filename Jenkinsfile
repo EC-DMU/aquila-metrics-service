@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh 'docker stop metrics-container || true'
                 sh 'docker rm metrics-container || true'
-                sh 'docker run -d -p 5051:5050 --name metrics-container metrics-api:$BUILD_NUMBER python api/api/api.py'
+                sh 'docker run -d -p 5050:5050 --name metrics-container metrics-api:$BUILD_NUMBER python api/api/api.py'
             }
         }
     }  
