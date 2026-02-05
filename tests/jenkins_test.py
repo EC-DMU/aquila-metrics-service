@@ -1,5 +1,5 @@
 import pytest
-from api.api import api # importing API application
+from api.api import api
 
 def test_calculations():
     client = api.test_client()
