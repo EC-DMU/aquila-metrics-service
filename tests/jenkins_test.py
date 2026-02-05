@@ -6,7 +6,7 @@ def test_calculations():
     response = client.post("/calculator", json={"input": [1, 2, 3, 4, 5]})
     response_json = response.get_json()
     assert response.status_code == 200, f"Got {response.status_code} from {response_json} instead of expected result"
-    assert response.get_json()["Mean"] == 3, f"Got {response_json['Mean']} instead of expected result of 3"
+    assert response.get_json()["Mean"] == 0, f"Got {response_json['Mean']} instead of expected result of 3"
     assert response.get_json()["Median"] == 3, f"Got {response_json['Median']} instead of expected result of 3"
     assert response.get_json()["Min"] == 1, f"Got {response_json['Min']} instead of expected result of 1"
     assert response.get_json()["Max"] == 5, f"Got {response_json['Max']} instead of expected result of 5"
